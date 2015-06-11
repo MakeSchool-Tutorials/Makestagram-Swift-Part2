@@ -217,7 +217,7 @@ Two are used to search for users. One returns all users (except the signed in on
 
 The other user search query takes the current search string and returns the users that match it.
 
-It's noteworthy that both of these methods return a `PFQuery` object. This allows the `FriendSearchViewController` to keep a reference to the request that is currently going on. When a user types into the search field, we will kick of a new search request every time the text changes; you'll see that later in the code for the `FriendSearchViewController`. Using the reference to the current query, the `FriendSearchViewController` will cancel the current request before starting a new one. That way we avoid that a fast-typing user causes many requests to start in parallel. Whenever we start a new search query, the old query is outdated. So if it is still ongoing, we can cancel it since we are no longer interested in these outdated results.
+It's noteworthy that both of these methods return a `PFQuery` object. This allows the `FriendSearchViewController` to keep a reference to the request that is currently going on. When a user types into the search field, we will kick of a new search request every time the text changes; you'll see that later in the code for the `FriendSearchViewController`. Using the reference to the current query, the `FriendSearchViewController` will cancel the current request before starting a new one. That way we prevent a fast-typing user from causing many requests to start in parallel. Whenever we start a new search query, the old query is outdated. So if it is still ongoing, we can cancel it since we are no longer interested in these outdated results.
 
 The other three methods are used to add, remove and retrieve followees of the current user. These are pretty standard Parse queries without any noteworthy implementation details.
 
@@ -469,7 +469,7 @@ Now you should be able to try out the new feature. Follow another user, then ref
 > <video width="100%" height="400pt" controls>
   <source src="https://s3.amazonaws.com/mgwu-misc/SA2015/FollowNewUser_small.mov" type="video/mp4">
 
-You should see our posts show up on the timeline! This is very exciting. Now you can use the app with multiple user!
+You should see our posts show up on the timeline! This is very exciting. Now you can use the app with multiple users!
 
 #Conclusion
 
