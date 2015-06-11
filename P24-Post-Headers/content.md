@@ -44,7 +44,7 @@ We will also need a new Swift class for this cell. That will allow us to create 
 #Setting up Code Connections
 
 > [action]
-> Create a new class `PostSectionHeaderView` and make it a subclass of `UITableView`.
+> Create a new class `PostSectionHeaderView` and make it a subclass of `UITableViewCell`.
 
 Now we'll connect our class and the cell in Interface Builder and create referencing outlets for both labels.
 

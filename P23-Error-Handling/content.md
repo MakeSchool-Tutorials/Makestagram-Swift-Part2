@@ -5,7 +5,7 @@ slug: error-handling
 
 Error Handling is not the most exciting topic, but definitely an important one! It also is anything but trivial. Imagine, a user liked a photo, you try to send this information to Parse and as a response you receive an error. What should you do? How do you inform the user? Should you mark the post as liked or unliked? Each possible error will pose such questions - answering them is well beyond the scope of this tutorial, especially since most errors will be fairly specific to your own application.
 
-However, this chapter shall provide us with some guidelines for error handing, that should help you when building your own app. There are two different ways to respond to an error:
+However, this chapter shall provide us with some guidelines for error handling, that should help you when building your own app. There are two different ways to respond to an error:
 
 1. Generic. We perform some default action, independent of the type of error
 2. Specific. We react to a specific subset of errors and handle them with specific code
@@ -20,7 +20,7 @@ If the optional `NSError` contains a value, an error occurred. If it contains `n
 
 #Generic Error Handling
 
-As part of the template project we have already provided you with a generic error handing method: `ErrorHanding.defaultErrorHandler(_:)`. Let's take a look at what that method looks like:
+As part of the template project we have already provided you with a generic error handling method: `ErrorHandling.defaultErrorHandler(_:)`. Let's take a look at what that method looks like:
 
     static let ErrorTitle           = "Error"
     static let ErrorOKButtonTitle   = "Ok"
