@@ -7,10 +7,10 @@ Throughout this tutorial we won't dive too deep into detecting and fixing memory
 
 #What are Memory Warnings?
 
-If you spent some time using the current version of _Makestagram_ and upload a large amount of photos you will likely see a _memory warning_ show up in the Xcode console. Potentially your app will even crash. Despite the fact that todays iPhones are powerful devices with lots of memory and processing power, we still have limited resources to work with.
+If you spent some time using the current version of _Makestagram_ and upload a large amount of photos you will likely see a _memory warning_ show up in the Xcode console. Potentially your app will even crash. Despite the fact that today's iPhones are powerful devices with lots of memory and processing power, we still have limited resources to work with.
 
 Users of today's mobile devices expect apps to be extremely responsive and the mobile operating systems help ensure that by dividing the available resources efficiently between the different apps running on a phone. **What does this mean for you?**
-If your app is too greedy in its memory consumption, iOS will terminate it to avoid that your app causes the entire phone to slow down.
+If your app is too greedy in its memory consumption, iOS will terminate it to prevent your app from causing the entire phone to slow down.
 
 If you see a memory warning in the console or if your app even crashes due to a memory warning, it's time to act.
 
@@ -61,7 +61,7 @@ Let's add the code and then discuss it in detail.
     }
 
 1. The `oldValue` variable is available automatically in the `didSet` property observer. It provides us with a way to access the previous value of a property. We check if an `oldValue` exists and if that `oldValue` is different from the new `post`. If that's the case, we know that we need to do some cleanup.
-2. By adding the calls to `unbindAll()` we are secretly fixing an issue that we haven't even discussed yet. Without this code in place, we are adding a new binding whenever a new post gets assigned to our `PostTableViewCell`. I most cases where you create a binding, you should also have code that destroys that binding when it is no longer needed. In case of the `PostTableViewCell` we don't need the binding anymore if the cell is displaying a new post. By calling `unbindAll` on the `likeBond`, we unsubscribe from future updates of the old post. We do the same for `postImageView.designatedBond` - that's the bond that updates the `postImageView` when the image of the current post is loaded successfully. It is called `designatedBond` because it exists by default, without that we have to explicitly create it (like we had to with the `likeBond`). The `Bond` framework adds `designatedBond`s to most UI components such as `UIImageView` and `UITextField`.
+2. By adding the calls to `unbindAll()` we are secretly fixing an issue that we haven't even discussed yet. Without this code in place, we are adding a new binding whenever a new post gets assigned to our `PostTableViewCell`. In most cases where you create a binding, you should also have code that destroys that binding when it is no longer needed. In case of the `PostTableViewCell` we don't need the binding anymore if the cell is displaying a new post. By calling `unbindAll` on the `likeBond`, we unsubscribe from future updates of the old post. We do the same for `postImageView.designatedBond` - that's the bond that updates the `postImageView` when the image of the current post is loaded successfully. It is called `designatedBond` because it exists by default, without that we have to explicitly create it (like we had to with the `likeBond`). The `Bond` framework adds `designatedBond`s to most UI components such as `UIImageView` and `UITextField`.
 3. After we have unbound from the old post, we check if the image of the old post has any bindings left. If `oldValue.image.bonds.count` is _0_, we know that no one is binding to the image of the old post anymore. This means we can free up the memory by setting the `image.value` to `nil`.
 
 Great! Whenever an image is no longer displayed, we are freeing up the memory. That means we'll only have about 3 images in memory at any point in time. Our memory issue is fixed!
