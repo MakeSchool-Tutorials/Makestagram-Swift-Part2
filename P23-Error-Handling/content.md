@@ -20,7 +20,7 @@ If the optional `NSError` contains a value, an error occurred. If it contains `n
 
 #Generic Error Handling
 
-As part of the template project we have already provided you with a generic error handing method: `ErrorHanding.defaultErrorHandler(_:)`. Let's take a look at what that method looks like:
+As part of the template project we have already provided you with a generic error handling method: `ErrorHandling.defaultErrorHandler(_:)`. Let's take a look at what that method looks like:
 
     static let ErrorTitle           = "Error"
     static let ErrorOKButtonTitle   = "Ok"
