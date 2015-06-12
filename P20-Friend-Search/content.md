@@ -446,7 +446,7 @@ The biggest novelty in the `FriendSearchViewController` is the concept of a loca
         if var followingUsers = followingUsers {
           ParseHelper.removeFollowRelationshipFromUser(PFUser.currentUser()!, toUser: user)
           // remove unfollowed user from local cache
-          followingUsers = followingUsers.filter { $0 != user }
+          removeObject(user, fromArray: &followingUsers)
         }
       }
 >
