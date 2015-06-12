@@ -24,7 +24,7 @@ At the root level we only have two components: a Search Bar and a Table View.
 > <video width="100%" height="400pt" controls>
   <source src="https://s3.amazonaws.com/mgwu-misc/SA2015/SearchBarConstraints_small.mov" type="video/mp4">
 >
-> Remember that the last step is to use the shortkey _⌘⌥=_ to update the frame according to its new constraints.
+> Remember that the last step is to use the shortkey _⌘⌥=_ to update the frame according to its new constraints. Do this each time you finish adding a component in the steps below.
 
 ##Adding a Table View
 
