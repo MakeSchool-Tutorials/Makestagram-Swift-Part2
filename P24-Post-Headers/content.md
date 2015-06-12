@@ -5,7 +5,7 @@ slug: post-headers
 
 This and the following steps will focus primarily on improving the design of _Makestagram_. One of the missing visual features are headers above every post that show the username and when the post was created. Here's what the final timeline of _Makestagram_ will look like, when it includes that feature:
 
-![image(stacked_headers.png)
+![image](stacked_headers.png)
 
 In this step we will add these headers to every post. The header will be a second type of `UITableViewCell` that we will configure in Interface Builder.
 

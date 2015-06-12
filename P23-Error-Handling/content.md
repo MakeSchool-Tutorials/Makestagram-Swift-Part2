@@ -39,7 +39,7 @@ As part of the template project we have already provided you with a generic erro
 
 All this method does, is create `UIAlertController` to display a popup message. The popup doesn't provide the user with specific information about the issue, instead it states: _"Something unexpected happened, sorry for that!"_.
 
-This isn't example of great error handling, but it is definitely better than nothing! In your own app you want to add such a general error handling method to which you can fall back, if you don't have time to provide code to handle the error specifically.
+This isn't an example of great error handling, but it is definitely better than nothing! In your own app you want to add such a general error handling method to which you can fall back, if you don't have time to provide code to handle the error specifically.
 
 When you add such a generic error handler to your app, you should also log any errors that occur, using some _analytics_ frameworks, such as [Mixpanel](https://mixpanel.com/). Logging the error using an analytics framework will make all the error messages that users encounter available to you. That will make it easier to fix issues in subsequent releases.
 
@@ -121,6 +121,6 @@ When building your app, think about especially critical features and equip them 
 
 In this step you've learned how to capture errors in your app. You should respond to all errors - at minimum with a generic response that logs the error to some analytics platforms and informs the user that an error occurred.
 
-For individual core features you should think about common error cases and write custom error handling code to recover from these errors as good as possible.
+For individual core features you should think about common error cases and write custom error handling code to recover from these errors as gracefully as possible.
 
 The core features of the app are complete! The remainder of this tutorial will focus on polishing the UI of _Makestagram_.

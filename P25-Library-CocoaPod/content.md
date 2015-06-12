@@ -67,7 +67,7 @@ Now how do you find such a library on your own? **Google!** For example _"Date t
 
 ![image](finding_library.png)
 
-That GitHub page will typically contain the name _CocoaPod_ of the library, which allows you to add it your _Podile_.
+That GitHub page will typically contain the name _CocoaPod_ of the library, which allows you to add it your _Podfile_.
 
 > [action]
 > Add the _DateTools_ dependency to your _Podfile_ so that it looks like this:
