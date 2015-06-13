@@ -306,7 +306,15 @@ The biggest novelty in the `FriendSearchViewController` is the concept of a loca
         It is used to update the UI immediately upon user interaction, instead of waiting
         for a server response.
       */
-      var followingUsers: [PFUser]?
+      var followingUsers: [PFUser]? {
+        didSet { 
+          /** 
+            the list of following users may be fetched after the tableView has displayed
+            cells. In this case, we reload the data to reflect "following" status
+          */
+          tableView.reloadData() 
+        }
+      }
 >
       // the current parse query
       var query: PFQuery? {
