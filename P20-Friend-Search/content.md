@@ -103,7 +103,7 @@ As discussed at the beginning of this step, we won't discuss the code in detail.
 
 ##Addding Parse Requests
 
-First we are going to add 5 different Parse request.
+First we are going to add 5 different Parse requests.
 
 > [action]
 > Add the following methods to the `ParseHelper` class:
@@ -113,7 +113,7 @@ First we are going to add 5 different Parse request.
     /**
       Fetches all users that the provided user is following.
 >
-      :param: user The user who's followees you want to retrive
+      :param: user The user whose followees you want to retrive
       :param: completionBlock The completion block that is called when the query completes
     */
     static func getFollowingUsersForUser(user: PFUser, completionBlock: PFArrayResultBlock) {
@@ -183,7 +183,7 @@ First we are going to add 5 different Parse request.
     }
 >
     /**
-    Fetch users who's username matches the provided search term.
+    Fetch users whose usernames match the provided search term.
 >
     :param: searchText The text that should be used to search for users
     :param: completionBlock The completion block that is called when the query completes
@@ -193,7 +193,7 @@ First we are going to add 5 different Parse request.
     static func searchUsers(searchText: String, completionBlock: PFArrayResultBlock)
       -> PFQuery {
       /*
-        NOTE: We are using a Regex to allow for a case insensetive compare of usernames.
+        NOTE: We are using a Regex to allow for a case insensitive compare of usernames.
         Regex can be slow on large datasets. For large amount of data it's better to store
         lowercased username in a separate column and perform a regular string compare.
       */
@@ -217,7 +217,7 @@ Two are used to search for users. One returns all users (except the signed in on
 
 The other user search query takes the current search string and returns the users that match it.
 
-It's noteworthy that both of these methods return a `PFQuery` object. This allows the `FriendSearchViewController` to keep a reference to the request that is currently going on. When a user types into the search field, we will kick of a new search request every time the text changes; you'll see that later in the code for the `FriendSearchViewController`. Using the reference to the current query, the `FriendSearchViewController` will cancel the current request before starting a new one. That way we prevent a fast-typing user from causing many requests to start in parallel. Whenever we start a new search query, the old query is outdated. So if it is still ongoing, we can cancel it since we are no longer interested in these outdated results.
+It's noteworthy that both of these methods return a `PFQuery` object. This allows the `FriendSearchViewController` to keep a reference to the request that is currently going on. When a user types into the search field, we will kick off a new search request every time the text changes; you'll see that later in the code for the `FriendSearchViewController`. Using the reference to the current query, the `FriendSearchViewController` will cancel the current request before starting a new one. That way we prevent a fast-typing user from causing many requests to start in parallel. Whenever we start a new search query, the old query is outdated. So if it is still ongoing, we can cancel it since we are no longer interested in these outdated results.
 
 The other three methods are used to add, remove and retrieve followees of the current user. These are pretty standard Parse queries without any noteworthy implementation details.
 
@@ -229,10 +229,10 @@ Next, let's discuss the implementation of the `FriendSearchTableViewCell`. The m
 
 When the button is tapped, we want _Makestagram_ to follow / unfollow the person. However, we won't implement that directly in the `FriendSearchTableViewCell`. Typically we want to keep more complex functionality outside of our views. Our solution is to define a `delegate` that will be responsible for performing the follow / unfollow.
 
-The `delegate` of each cell will be the `FriendSearchViewController`. When the follow button is tapped, the `FriendTableViewCell` will inform it's delegate.
+The `delegate` of each cell will be the `FriendSearchViewController`. When the follow button is tapped, the `FriendTableViewCell` will inform its delegate.
 
 > [action]
-> Replace the content of _FriendSearchTableViewCell.swift_ with the following one:
+> Replace the contents of _FriendSearchTableViewCell.swift_ with the following one:
 >
     import UIKit
     import Parse
