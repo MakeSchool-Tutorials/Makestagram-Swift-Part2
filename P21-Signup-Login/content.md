@@ -27,7 +27,7 @@ This entry defines which storyboard should be loaded and displayed upon app star
 
 #Providing the Initial View Controller with an Identifier
 
-When we want to write code to decide which View Controller should be displayed first, we need a way to reference that specific View Controller. For that purpose Storyboard provides each element with a _Storyboard ID_. By default that ID is empty. If we want to reference a Storyboard element in code we need to choose a _Stroyboard ID_. For _Makestagram_ we want to display the `TabBarViewController` as soon as a user is logged in.
+When we want to write code to decide which View Controller should be displayed first, we need a way to reference that specific View Controller. For that purpose Storyboard provides each element with a _Storyboard ID_. By default that ID is empty. If we want to reference a Storyboard element in code we need to choose a _Storyboard ID_. For _Makestagram_ we want to display the `TabBarViewController` as soon as a user is logged in.
 
 Let's provide a Storyboard ID for that controller.
 
@@ -36,7 +36,7 @@ Let's provide a Storyboard ID for that controller.
 >
 ![image](storyboard_id.png)
 
-In many ways programming is a creative pursuit. However, when it comes to naming things you're mostly better of making the obvious yet boring choice.
+In many ways programming is a creative pursuit. However, when it comes to naming things you're mostly better off making the obvious yet boring choice.
 
 We're done with preparing our configuration, we can now get down to coding!
 
@@ -113,7 +113,7 @@ Let's create one of these `ParseLoginHelper`s.
     }
 
 
-1. In case an we receive an `error` in our closure, we call the `ErrorHandling.defaultErrorHandler` method. That error handler method was part of the template project. It displays a popup with the error message. We'll discuss error handling in more detail in one of the later steps.
+1. In case we receive an `error` in our closure, we call the `ErrorHandling.defaultErrorHandler` method. That error handler method was part of the template project. It displays a popup with the error message. We'll discuss error handling in more detail in one of the later steps.
 2. If we didn't receive an `error`, but received a `user`, we know that our login was successful. In this case we load the _Main_ storyboard and create the _TabBarController_. This is the line where we use the _Storyboard ID_ that we've set up earlier. Before we removed _Main.storyboard_ as default entry point to  our app, all of this was happening under the covers. Now we have to load Storyboards and View Controllers manually.
 3. After we have loaded the View Controller, we are also responsible for presenting it. We can choose the main View Controller of our app, in code, by setting the `rootViewController` property of the `AppDelegate`'s `window`. When the code in this closure runs, our app will already have the login screen as its `rootViewController`. As soon as the successful login completes, we present the _TabBarController_ on top of the login screen.
 
@@ -193,7 +193,7 @@ We'll tackle that issue next.
 
 #Making the Facebook Login Work
 
-To be able to login with Facebook, we need to register our app with their platform. Make sure you are signed up and logged in to Facebook so that you are able to access the Facebook Developer Portal. For future reference you can find the general setup guide (here)[https://developers.facebook.com/docs/ios/getting-started]. For now it will be easier to follow our instructions that are more specific to the _Makestagram_ app.
+To be able to login with Facebook, we need to register our app with their platform. Make sure you are signed up and logged in to Facebook so that you are able to access the Facebook Developer Portal. For future reference you can find the general setup guide [here](https://developers.facebook.com/docs/ios/getting-started). For now it will be easier to follow our instructions that are more specific to the _Makestagram_ app.
 
 Let's create a new Facebook app.
 
@@ -225,7 +225,7 @@ Let's find the bundle identifier for our app and provide it to Facebook.
 Before we can test the Facebook login we'll need to make some changes to the _Info.plist_ file of our application. The _Info.plist_ is the main configuration file for every app.
 
 > [action]
-Open the app's _Info.plist_ as shown in the image below. Then configured it by performing the following steps from Facebook's setup guide (_Note that you can add new lines to a .plist by selecting an existing line and hitting the + button._):
+Open the app's _Info.plist_ as shown in the image below. Then configure it by performing the following steps from Facebook's setup guide (_Note that you can add new lines to a .plist by selecting an existing line and hitting the + button._):
 1. Create a key called _FacebookAppID_ with a string value, and add the app ID there.
 2. Create a key called _FacebookDisplayName_ with a string value, and add the Display Name you configured in the App Dashboard.
 3. Create an array key called _URL types_ with a single array sub-item called _URL Schemes_. Give this a single item with your app ID prefixed with fb.
@@ -253,6 +253,6 @@ You have also learned how to use the `ParseLoginHelper` and the `PFLoginViewCont
 
 Finally, you have learned how to set up your app on Facebook. That allows user to sign up for your app using their Facebook account.
 
-This step should server as a good template for implementing the login and signup feature in your own app.
+This step should serve as a good template for implementing the login and signup feature in your own app.
 
 In the next step we will look into a small optimization for _Makestagram_. Even though it isn't obvious, it turns out that the app is using a large amount of memory...
