@@ -45,7 +45,20 @@ We're done with preparing our configuration, we can now get down to coding!
 You've heard this question before: where should we place code that runs when our app starts?
 **Correct: in the `AppDelegate`**. The `AppDelegate` is the class that is mainly responsible for communicating with the iOS operating system; it is also the class that receives a message when your app has launched. That's where we need to decide whether or not we want to confront our users with a login screen.
 
-Let's start by getting a dull task done - importing some modules.
+Our very first step will be deleting our existing login functionality. Soon we will have a real login screen, so we no longer need the placeholder code.
+
+> [action]
+> Delete the following lines from the `application(_:, didFinishLaunchingWithOptions:)` method in the `AppDelegate`:
+>
+    PFUser.logInWithUsername("test", password: "test")
+>
+    if let user = PFUser.currentUser() {
+      println("Log in successful")
+    } else {
+      println("No logged in user :(")
+    }
+
+Now, let's start with the implementation of our new login mechanism by getting a dull task done - importing some modules.
 
 > [action]
 > Add the following import statements to _AppDelegate.swift_:
