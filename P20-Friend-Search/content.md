@@ -479,6 +479,8 @@ Now you should be able to try out the new feature. Follow another user, then ref
 
 You should see our posts show up on the timeline! This is very exciting. Now you can use the app with multiple users!
 
+Don't worry if you do not see any images for the imported posts. It's due to limitations of Parse export/import functionality.
+
 #Conclusion
 
 This step serves as a nice template for implementing a search screen in Parse. It was mostly a re-iteration of things you have learned earlier on. Hopefully this re-iteration made you more comfortable in working with Storyboard and building View Controllers from scratch!
