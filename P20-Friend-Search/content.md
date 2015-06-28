@@ -113,7 +113,7 @@ First we are going to add 5 different Parse requests.
     /**
       Fetches all users that the provided user is following.
 >
-      :param: user The user whose followees you want to retrive
+      :param: user The user whose followees you want to retrieve
       :param: completionBlock The completion block that is called when the query completes
     */
     static func getFollowingUsersForUser(user: PFUser, completionBlock: PFArrayResultBlock) {
@@ -153,8 +153,8 @@ First we are going to add 5 different Parse requests.
 >
           let results = results as? [PFObject] ?? []
 >
-          for likes in results {
-            likes.deleteInBackgroundWithBlock(nil)
+          for follow in results {
+            follow.deleteInBackgroundWithBlock(nil)
           }
       }
     }
@@ -169,7 +169,7 @@ First we are going to add 5 different Parse requests.
 >
       :returns: The generated PFQuery
     */
-    static func allUsers(completionBlock:PFArrayResultBlock) -> PFQuery {
+    static func allUsers(completionBlock: PFArrayResultBlock) -> PFQuery {
       let query = PFUser.query()!
       // exclude the current user
       query.whereKey(ParseHelper.ParseUserUsername,
