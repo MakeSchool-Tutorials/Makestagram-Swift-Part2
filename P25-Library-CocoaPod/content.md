@@ -5,7 +5,7 @@ slug: libraries-cocoapods
 
 There are a lot of software developers worldwide and through the internet we are better connected than ever. Platforms such as GitHub and StackOverflow further improve our ability to share solutions to common problems we face in software development.
 
-Once you start developing software, you will realize that many, if not most, of the problems you encounter have been solved by someone else before. Reusing these solutions in our own projects allows us to build software at an unprecedented speed.
+Once you start developing software, you will realize that many, if not most, of the problems you encounter have been solved by someone else before. Reusing these solutions in our own projects allows us to build software at unprecedented speeds.
 
 This last step will show you how to easily incorporate third-party code into your iOS projects, before you head on to work on your own project.
 
@@ -107,6 +107,7 @@ To import Objective-C libraries, you need to add them to a _Bridging Header_. Ou
 
 > [action]
 > Add the _DateTools_ library to _Makestagram's_ bridging header as shown below:
+
 ![image](add_lib.png)
 
 #Using the Library
@@ -129,7 +130,7 @@ Let's extend the `PostSectionHeaderView` to use the new library.
 
 1. We are reading the `createdAt` date from the `post`. This is a property that Parse sets by default on all `PFObjects`. Then we use an extension provided by the _DateTools_ library: `shortTimeAgoSinceDate(_:)`. This method takes a comparison date. By calling `NSDate()` we create a date object with the current time. If the post has been created 4 hours ago, this line of code will generate the string _"4h"_. Since `createdAt?` is an optional, we use the `??` operator to fall back to an empty string, in case the 'createdAt' date should be nil.
 
-Awesome! Now it's once again time to test this new feature. When running the app you should now see that the header cells display correctly, how long ago a post has been created:
+Awesome! Now it's once again time to test this new feature. When running the app you should now see that the header cells display how long ago a post has been created:
 
 ![image](working.png)
 
