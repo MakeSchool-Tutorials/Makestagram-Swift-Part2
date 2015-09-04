@@ -39,35 +39,34 @@ As part of the template project we have already provided you with a generic erro
 
 All this method does, is create `UIAlertController` to display a popup message. The popup doesn't provide the user with specific information about the issue, instead it states: _"Something unexpected happened, sorry for that!"_.
 
-This isn't an example of great error handling, but it is definitely better than nothing! In your own app you want to add such a general error handling method to which you can fall back, if you don't have time to provide code to handle the error specifically.
+This isn't an example of great error handling, but it is definitely better than nothing! In your own app, you will want to add such a general error handling method to which you can fall back, if you don't have time to provide code to handle the error specifically.
 
 When you add such a generic error handler to your app, you should also log any errors that occur, using some _analytics_ frameworks, such as [Mixpanel](https://mixpanel.com/). Logging the error using an analytics framework will make all the error messages that users encounter available to you. That will make it easier to fix issues in subsequent releases.
 
-So how can we use this error handling method in _Makestagram_? For _Makestagram_ we won't do any specific error handling, that means we should at least handle all potential errors by calling the `defaultErrorHandler`.
+So how can we use this error handling method in **Makestagram**? For **Makestagram**, we won't do any specific error handling, that means we should at least handle all potential errors by calling the `defaultErrorHandler`.
 
-This means you should find all requests in the _Makestagram_ app that have an `error` parameter and call the `defaultErrorHandler` in case that parameter is not `nil`. Here's an example of how to extend the `unlikePost` method of `ParseHelper` with generic error handling:
+This means you should find all requests in the **Makestagram** app that have an `error` parameter and call the `defaultErrorHandler` in case that parameter is not `nil`. Here's an example of how to extend the `unlikePost` method of `ParseHelper` with generic error handling:
 
     static func unlikePost(user: PFUser, post: Post) {
       let query = PFQuery(className: ParseLikeClass)
       query.whereKey(ParseLikeFromUser, equalTo: user)
       query.whereKey(ParseLikeToPost, equalTo: post)
 
-      query.findObjectsInBackgroundWithBlock {
-        (results: [AnyObject]?, error: NSError?) -> Void in
-          if let error = error {
-            ErrorHandling.defaultErrorHandler(error)
-          }
+      query.findObjectsInBackgroundWithBlock { (results: [AnyObject]?, error: NSError?) -> Void in
+        if let error = error {
+          ErrorHandling.defaultErrorHandler(error)
+        }
 
-          if let results = results as? [PFObject] {
-            for likes in results {
-              likes.deleteInBackgroundWithBlock(nil)
-            }
+        if let results = results as? [PFObject] {
+          for likes in results {
+            likes.deleteInBackgroundWithBlock(nil)
           }
+        }
       }
     }
 
 > [action]
-> Go ahead and improve the _Makestagram_ app by adding this generic error handler to all operations that receive `error` arguments.
+> Go ahead and improve the **Makestagram** app by adding this generic error handler to all operations that receive `error` arguments.
 
 When you're done, we're going to tackle a second category of errors that we aren't catching currently. We are making a few Parse requests where we aren't passing a completion block. Here's an example from the `unlikePost` method in the `ParseHelper` class:
 
@@ -103,9 +102,9 @@ Using that callback we can improve the code from the `unlikePost` method as foll
 Now we are passing the `errorHandlingCallback` instead of `nil` as a completion block, and will be informed about potential errors.
 
 > [action]
-> Improve the error handling in _Makestagram_ further, by replacing all `nil` callbacks with the `errorHandlingCallback`.
+> Improve the error handling in **Makestagram** further, by replacing all `nil` callbacks with the `errorHandlingCallback`.
 
-Now _Makestagram_ fulfills the minimum requirements for error handling. If we add analytics code to our error handler we will be notified about almost any error that can occur in our app!
+Now **Makestagram** fulfills the minimum requirements for error handling. If we add analytics code to our error handler we will be notified about almost any error that can occur in our app!
 
 In an ideal world you want to handle all errors specifically, realistically however this can be very time consuming. Therefore you should spend some time finding the critical areas of your app and add specific error handling code there.
 
@@ -113,7 +112,7 @@ In an ideal world you want to handle all errors specifically, realistically howe
 
 What do we mean by _specific_ error handling? Each type of error has a different meaning for the state of your application.
 
-If, for example, a like in the _Makestagram_ app fails to be synchronized with the server, you might want to inform the user about this and deactivate the like button as a response to the error. This is a specific reaction to a special type of error.
+If, for example, a like in the **Makestagram** app fails to be synchronized with the server, you might want to inform the user about this and deactivate the like button as a response to the error. This is a specific reaction to a special type of error.
 
 When building your app, think about especially critical features and equip them with special error handling code.
 
@@ -121,6 +120,6 @@ When building your app, think about especially critical features and equip them 
 
 In this step you've learned how to capture errors in your app. You should respond to all errors - at minimum with a generic response that logs the error to some analytics platforms and informs the user that an error occurred.
 
-For individual core features you should think about common error cases and write custom error handling code to recover from these errors as gracefully as possible.
+For individual core features, you should think about common error cases and write custom error handling code to recover from these errors as gracefully as possible.
 
-The core features of the app are complete! The remainder of this tutorial will focus on polishing the UI of _Makestagram_.
+The core features of the app are complete! The remainder of this tutorial will focus on polishing the UI of **Makestagram**.
