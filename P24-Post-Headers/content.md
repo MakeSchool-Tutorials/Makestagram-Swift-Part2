@@ -3,11 +3,11 @@ title: "Improving the Design: Post Headers"
 slug: post-headers
 ---
 
-This and the following steps will focus primarily on improving the design of _Makestagram_. One of the missing visual features are headers above every post that show the username and when the post was created. Here's what the final timeline of _Makestagram_ will look like, when it includes that feature:
+This and the following steps will focus primarily on improving the design of **Makestagram**. One of the missing visual features are headers above every post that show the username and when the post was created. Here's what the final timeline of **Makestagram** will look like, when it includes that feature:
 
 ![image](stacked_headers.png)
 
-In this step we will add these headers to every post. The header will be a second type of `UITableViewCell` that we will configure in Interface Builder.
+In this step, we will add these headers to every post. The header will be a second type of `UITableViewCell` that we will configure in Interface Builder.
 
 #Creating the Header Cell
 
@@ -18,10 +18,11 @@ Let's start by setting that cell up.
 > <video width="100%" controls>
   <source src="https://s3.amazonaws.com/mgwu-misc/SA2015/SetupPostHeader_small.mov" type="video/mp4">
 >
-Throughout the instructions I have been updating the frames of our views by using the _⌘⌥=_ shortkey. To make sure that your frames are up to date, select any View in the Storyboard, then select _Update Frames_ as shown below:
+Throughout the instructions I have been updating the frames of our views by using the _⌘⌥=_ shortkey. To make sure that your frames are up to date, select any view in the storyboard, then select _Update Frames_ as shown below:
+
 ![image](update_frames.png)
 
-Next, we need to define an _identifier_ for that new Table View Cell so that we can reference it in code.
+Next, we need to define an _identifier_ for that new table view cell so that we can reference it in code.
 
 > [action]
 > Set the identifier of the cell to _PostHeader_:
@@ -49,13 +50,15 @@ We will also need a new Swift class for this cell. That will allow us to create 
 Now we'll connect our class and the cell in Interface Builder and create referencing outlets for both labels.
 
 > [action]
-> Set the _Custom Class_ of the new Table View Cell:
+> Set the _Custom Class_ of the new table view cell:
+
 ![image](custom_class.png)
 
 Now we can create the referencing outlets.
 
 > [action]
 > Add referencing outlets for both labels:
+
 ![image](ref_outlets.png)
 
 Now our Interface Builder setup is complete and we can start writing some code.
@@ -83,19 +86,19 @@ The code for the header cell will be very simple. We want it to accept a `Post` 
       }
     }
 
-As you can see: compared to the code we've written so far, this is not too exciting! The more interesting part is presenting this new header cell above every single post in our Table View.
+As you can see: compared to the code we've written so far, this is not too exciting! The more interesting part is presenting this new header cell above every single post in our table view.
 
 #Displaying the Post Cell Header
 
 Luckily, displaying our header cells is not too complicated. Apple has built this functionality into `UITableView`.
 
-The `UITableView` divides its content into sections and rows. Currently our Table View has exactly one section, with all posts displayed as individual rows within that section.
+The `UITableView` divides its content into sections and rows. Currently our table view has exactly one section, with all posts displayed as individual rows within that section.
 
 Each section in a `UITableView` can have a header view. This means we could easily display _one_ header view for our _one_ section.
 
 But how can we display a header for each post?
 
-The trick is to change the structure of our data in the Table View. Instead of displaying each post as a row, we will display each post as a _section_. This way we will be able to provide an individual section header for each post.
+The trick is to change the structure of our data in the table view. Instead of displaying each post as a row, we will display each post as a _section_. This way we will be able to provide an individual section header for each post.
 
 Essentially we are swapping the meaning of rows and sections - this requires some changes to our `TimelineViewController`.
 
@@ -173,6 +176,6 @@ Awesome! Now this app looks very similar to a famous photo sharing app!
 
 #Conclusion
 
-In this step you have learned more about how rows and sections compose the content of a Table View. You have also learned how to display section headers.
+In this step, you learned more about how rows and sections compose the content of a table view. You have also learned how to display section headers.
 
 In the next step we will improve these headers, by displaying the amount of time that has passed since a post has been created. You will also learn how to install a third-party library to help us with that feature.
