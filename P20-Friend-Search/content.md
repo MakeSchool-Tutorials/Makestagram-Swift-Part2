@@ -3,9 +3,9 @@ title: "Implementing a Friend Search in Parse"
 slug: friend-search-follow
 ---
 
-In this chapter we will add a feature that will allow users to find & follow friends. We will start by setting up the UI in Storyboard, then we'll fill in the implementation in code.
+In this chapter, we will add a feature that will allow users to find & follow friends. We will start by setting up the UI in Interface Builder, then we'll fill in the implementation in code.
 
-**The explanations and instructions in this step will not be as detailed as in the previous ones - the View Controller we are about to build behaves very similar to the main View Controller in the notes app. Therefore it won't be necessary to discuss all of the involved concepts.**
+**The explanations and instructions in this step will not be as detailed as in the previous ones - the view controller we are about to build behaves very similar to the main view controller in the notes app. Therefore it won't be necessary to discuss all of the involved concepts.**
 
 If you are incorporating any kind of search into your app, the code in this step should serve as a very good template!
 
@@ -15,12 +15,12 @@ This is what the final UI will look like, once the entire app is complete:
 
 ![image](friend_search_complete.png)
 
-At the root level we only have two components: a Search Bar and a Table View.
+At the root level we only have two components: a search Bar and a table view.
 
 ##Adding a Search Bar
 
 > [action]
-> Add a Search Bar to the `FriendSearchViewController` as shown in the video below:
+> Add a search bar to the `FriendSearchViewController` as shown in the video below:
 > <video width="100%" height="400pt" controls>
   <source src="https://s3.amazonaws.com/mgwu-misc/SA2015/SearchBarConstraints_small.mov" type="video/mp4">
 >
@@ -29,32 +29,32 @@ At the root level we only have two components: a Search Bar and a Table View.
 ##Adding a Table View
 
 > [action]
-> Add a Table View to the `FriendSearchViewController` as shown in the video below:
+> Add a table view to the `FriendSearchViewController` as shown in the video below:
 > <video width="100%" height="400pt" controls>
   <source src="https://s3.amazonaws.com/mgwu-misc/SA2015/FriendSearchTableViewConstraints_small.mov" type="video/mp4">
 
 ##Adding a Custom Table View Cell
 
 > [action]
-> Add a Table View Cell to the `FriendSearchViewController` as shown in the video below:
+> Add a table view cell to the `FriendSearchViewController` as shown in the video below:
 > <video width="100%" height="400pt" controls>
   <source src="https://s3.amazonaws.com/mgwu-misc/SA2015/CustomCellFriendSearch_small.mov" type="video/mp4">
 
 #Creating Code Connections
 
-We'll need multiple Code Connections to generate the cells from code and to implement the _follow_ button. We'll also need code connections for the Search Bar.
+We'll need multiple code connections to generate the cells from code and to implement the _follow_ button. We'll also need code connections for the search bar.
 
 ##Cell identifier
 
-Let's start by setting up an identifier for our new Table View Cell.
+Let's start by setting up an identifier for our new table view cell.
 
 > [action]
-> Set the identifier for the `FriendSearchViewController`'s Table View Cell to _UserCell_:
+> Set the identifier for the `FriendSearchViewController`'s table view cell to _UserCell_:
 > ![image](custom_cell_identifier.png)
 
 ##Custom Cell Class
 
-Next, create a new class for this Cell.
+Next, create a new class for this cell.
 
 > [action]
 > Create a new `UITableViewCell` subclass called `FriendSearchTableViewCell` and add it to the _View_ group as shown below. Remember to first add a folder on the filesystem, then add that folder to Xcode. That way groups and folders stay in sync:
@@ -62,20 +62,20 @@ Next, create a new class for this Cell.
 
 ##Referencing Outlets and Button Callback
 
-Then connect the new class to the Table View Cell.
+Then connect the new class to the table view cell.
 
 > [action]
-> Set the custom class of the TableViewCell to `FriendSearchTableViewCell`:
+> Set the custom class of the table view cell to `FriendSearchTableViewCell`:
 > ![image](friend_cell_custom_class.png)
 
-Next, set up referencing outlets for the label and the button on the Table View Cell. Also add a callback for button taps:
+Next, set up referencing outlets for the label and the button on the table view cell. Also, add a callback for button taps:
 > [action]
 > Create the three code connections outlined below with the `FriendSearchTableViewCell`:
 > ![image](code_connections.png)
 
 ##Table View Data Source
 
-Now, set the Table View's Data Source to be the `FriendSearchViewController`.
+Now, set the table view's data source to be the `FriendSearchViewController`.
 
 > [action]
 > Set the Table View Data Source as as shown below:
@@ -83,7 +83,7 @@ Now, set the Table View's Data Source to be the `FriendSearchViewController`.
 
 ##Referencing Outlets for FriendSearchViewController
 
-Next, set up referencing outlets to the `FriendSearchViewController` from the Table View and the Search Bar.
+Next, set up referencing outlets to the `FriendSearchViewController` from the table view and the search bar.
 
 > [action]
 > Set up the following referencing outlets:
@@ -91,15 +91,15 @@ Next, set up referencing outlets to the `FriendSearchViewController` from the Ta
 
 ##Search Bar Delegate
 
-Finally, set up the Search Bar Delegate to be the `FriendSearchViewController`.
+Finally, set the delegate of the `UISearchBarDelegate` protocol to be the `FriendSearchViewController`.
 
 > [action]
-> Set up the Search Bar Delegate as shown below:
+> Set up the search bar delegate as shown below:
 > ![image](search_bar_delegate.png)
 
 #Adding the Friend Search Code
 
-As discussed at the beginning of this step, we won't discuss the code in detail. The source code has comments in all the relevant places. We will provide you with the full source code that you need to each class - you should take time to read through it and make sure that you understand it. We'll then discuss a few interesting, high-level details about the solution.
+As discussed at the beginning of this step, we won't discuss the code in detail. The source code has comments in all the relevant places. We will provide you with the full source code that you need for each class - you should take time to read through it and make sure that you understand it. We'll then discuss a few interesting, high-level details about the solution.
 
 ##Addding Parse Requests
 
@@ -211,9 +211,10 @@ First we are going to add 5 different Parse requests.
       return query
     }
 
+
 We've added a total of 5 different queries. All of these queries will be used by the `FriendSearchViewController`.
 
-Two are used to search for users. One returns all users (except the signed in one) - that query is used when the Search Bar in the `FriendSearchViewController` is empty.
+Two are used to search for users. One returns all users (except the signed in one) - that query is used when the search bar in the `FriendSearchViewController` is empty.
 
 The other user search query takes the current search string and returns the users that match it.
 
@@ -227,7 +228,7 @@ Using these 5 queries the `FriendSearchViewController` will be able to display u
 
 Next, let's discuss the implementation of the `FriendSearchTableViewCell`. The main features of that cell are displaying a username and a _follow_ button. That follow button can indicate whether or not we are already following a user.
 
-When the button is tapped, we want _Makestagram_ to follow / unfollow the person. However, we won't implement that directly in the `FriendSearchTableViewCell`. Typically we want to keep more complex functionality outside of our views. Our solution is to define a `delegate` that will be responsible for performing the follow / unfollow.
+When the button is tapped, we want **Makestagram** to follow / unfollow the person. However, we won't implement that directly in the `FriendSearchTableViewCell`. Typically we want to keep more complex functionality outside of our views. Our solution is to define a `delegate` that will be responsible for performing the follow / unfollow.
 
 The `delegate` of each cell will be the `FriendSearchViewController`. When the follow button is tapped, the `FriendTableViewCell` will inform its delegate.
 
@@ -284,7 +285,7 @@ Once again, there aren't too many new concepts in this code. After you took a de
 
 The `FriendSearchViewController` is very similar to the main View Controller in _Make School Notes_. It has two different states: searching or not searching. Based on that state it calls one of the two different Parse queries that we defined earlier.
 
-The biggest novelty in the `FriendSearchViewController` is the concept of a local cache. We create a special property called `followingUsers` that stores which users the current user is following. When one of the `FriendSearchTableViewCell`s triggers a unfollow / follow, we send a request to Parse, **but** we also update the `followingUsers` property immediately. As you will see in the code, this allows to update the UI immediately, without waiting for the server to respond.
+The biggest novelty in the `FriendSearchViewController` is the concept of a local cache. We create a special property called `followingUsers` that stores which users the current user is following. When one of the `FriendSearchTableViewCell`s triggers a unfollow / follow, we send a request to Parse, **but** we also update the `followingUsers` property immediately. As you will see in the code, this allows us to update the UI immediately, without waiting for the server to respond.
 
 > [action]
 > Replace the content of _FriendSearchViewController.swift_ with the following code:
@@ -307,12 +308,12 @@ The biggest novelty in the `FriendSearchViewController` is the concept of a loca
         for a server response.
       */
       var followingUsers: [PFUser]? {
-        didSet { 
-          /** 
+        didSet {
+          /**
             the list of following users may be fetched after the tableView has displayed
             cells. In this case, we reload the data to reflect "following" status
           */
-          tableView.reloadData() 
+          tableView.reloadData()
         }
       }
 >
@@ -354,9 +355,6 @@ The biggest novelty in the `FriendSearchViewController` is the concept of a loca
         self.users = results as? [PFUser] ?? []
         self.tableView.reloadData()
 >
-        if let error = error {
-          ErrorHandling.defaultErrorHandler(error)
-        }
       }
 >
       // MARK: View Lifecycle
@@ -375,10 +373,6 @@ The biggest novelty in the `FriendSearchViewController` is the concept of a loca
               $0.objectForKey(ParseHelper.ParseFollowToUser) as! PFUser
             }
 >
-            if let error = error {
-              // Call the default error handler in case of an Error
-              ErrorHandling.defaultErrorHandler(error)
-            }
         }
       }
 >
@@ -401,7 +395,7 @@ The biggest novelty in the `FriendSearchViewController` is the concept of a loca
         if let followingUsers = followingUsers {
           // check if current user is already following displayed user
           // change button appereance based on result
-          cell.canFollow = !contains(followingUsers, user)
+          cell.canFollow = !followingUsers.contains(user)
         }
 >
         cell.delegate = self
@@ -459,7 +453,7 @@ Once you are done you can move on to the next step: importing test data.
 
 #Getting Additional Users into Makestagram
 
-To test all of this new functionality we need multiple users with multiple posts stored on our server. There are two ways how you can accomplish this:
+To test all of this new functionality we need multiple users with multiple posts stored on our server. There are two ways you can accomplish this:
 
 1. Create new users in the Parse Data Browser, then log in with these users and create posts.
 2. [Download the data that we have prepared for you.](https://s3.amazonaws.com/mgwu-misc/SA2015/Parse_Exports.zip)
@@ -484,6 +478,6 @@ Don't worry if you do not see any images for the imported posts. It's due to lim
 
 #Conclusion
 
-This step serves as a nice template for implementing a search screen in Parse. It was mostly a re-iteration of things you have learned earlier on. Hopefully this re-iteration made you more comfortable in working with Storyboard and building View Controllers from scratch!
+This step serves as a nice template for implementing a search screen in Parse. It was mostly a re-iteration of things you have learned earlier on. Hopefully this re-iteration made you more comfortable in working with Interface Builder and building view controllers from scratch!
 
 In the next step we will discuss how to add a signup and login screen to _Makestagram_!

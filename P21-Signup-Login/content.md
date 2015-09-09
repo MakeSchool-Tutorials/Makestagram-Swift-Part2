@@ -7,7 +7,7 @@ So far we have been using a placeholder login mechanism. In this step we will fi
 
 Signing up with an email address and a password is a standard feature that we'll provide; but it's a pretty old school way of joining a new app! We'll provide our users with a Facebook login option as well. That's a great way to take some friction out of the signup process.
 
-Since this step will contain a few new concepts, we will discuss it in more detail than the last one. You'll learn how to change the initial View Controller of your app and also how to configure _Makestagram_ as a Facebook compatible application.
+Since this step will contain a few new concepts, we will discuss it in more detail than the last one. You'll learn how to change the initial view controller of your app and also how to configure **Makestagram** as a Facebook compatible application.
 
 #Changing the Screen Flow
 
@@ -15,7 +15,7 @@ One of the first things we need to do, is changing the screen flow of our app. C
 
 Our new screen flow will depend on whether or not a user is currently signed in. If we have a signed in user we want to display the `TabBarViewController`; if no user is signed in we want to display the login / signup screen.
 
-This will require some changes to our project settings. We can no longer simply display our Storyboard on launch, instead we need to write code that determines what the first View Controller in our app should be.
+This will require some changes to our project settings. We can no longer simply display our main storyboard on launch, instead we need to write code that determines what the first view controller in our app should be.
 
 Let's start by changing a setting in the _Info.plist_ that currently defines that the app should always start by displaying the _Main.storyboard_.
 
@@ -23,11 +23,11 @@ Let's start by changing a setting in the _Info.plist_ that currently defines tha
 Remove the _Main storyboard file base name_ entry from the apps _Info.plist_, by selecting it as shown in the image below, and hitting the delete key:
 ![image](remove_main_storyboard.png)
 
-This entry defines which storyboard should be loaded and displayed upon app start. By removing it, we have the opportunity to define the initial View Controller in code. You'll see how this works in just a second!
+This entry defines which storyboard should be loaded and displayed upon app start. By removing it, we have the opportunity to define the initial view controller in code. You'll see how this works in just a second!
 
 #Providing the Initial View Controller with an Identifier
 
-When we want to write code to decide which View Controller should be displayed first, we need a way to reference that specific View Controller. For that purpose Storyboard provides each element with a _Storyboard ID_. By default that ID is empty. If we want to reference a Storyboard element in code we need to choose a _Storyboard ID_. For _Makestagram_ we want to display the `TabBarViewController` as soon as a user is logged in.
+When we want to write code to decide which view controller should be displayed first, we need a way to reference that specific view controller. For that purpose, Interface Builder provides each scene (a.k.a. view controller) within a storyboard a _Storyboard ID_. By default that ID is empty. If we want to reference a specific scene in code, we need to choose a _Storyboard ID_. For **Makestagram**, we want to display the `TabBarViewController` as soon as a user is logged in.
 
 Let's provide a Storyboard ID for that controller.
 
@@ -36,7 +36,7 @@ Let's provide a Storyboard ID for that controller.
 >
 ![image](storyboard_id.png)
 
-In many ways programming is a creative pursuit. However, when it comes to naming things you're mostly better off making the obvious yet boring choice.
+In many ways programming is a creative pursuit; however, when it comes to naming things, you're mostly better off making the obvious yet boring choice.
 
 We're done with preparing our configuration, we can now get down to coding!
 
@@ -67,7 +67,7 @@ Now, let's start with the implementation of our new login mechanism by getting a
     import ParseUI
 
 
-Another thing that we should get out of our way is the boilerplate code that the Facebook SDK requires. There's nothing interesting about it; it just needs to be there to make things work.
+Another thing that we should get out of the way is the boilerplate code that the Facebook SDK requires. There's nothing interesting about it; it just needs to be there to make things work.
 
 > [action]
 > Add the following two methods to the `AppDelegate` class and remove the existing implementation of `applicationDidBecomeActive`:
@@ -78,7 +78,7 @@ Another thing that we should get out of our way is the boilerplate code that the
       FBSDKAppEvents.activateApp()
     }
 >
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
       return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
@@ -101,11 +101,11 @@ Let's create one of these `ParseLoginHelper`s.
         if let error = error {
           // 1
           ErrorHandling.defaultErrorHandler(error)
-        } else  if let user = user {
+        } else  if let _ = user {
           // if login was successful, display the TabBarController
           // 2
           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-          let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UIViewController
+          let tabBarController = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
 >         // 3
           self.window?.rootViewController!.presentViewController(tabBarController, animated:true, completion:nil)
         }
@@ -114,8 +114,8 @@ Let's create one of these `ParseLoginHelper`s.
 
 
 1. In case we receive an `error` in our closure, we call the `ErrorHandling.defaultErrorHandler` method. That error handler method was part of the template project. It displays a popup with the error message. We'll discuss error handling in more detail in one of the later steps.
-2. If we didn't receive an `error`, but received a `user`, we know that our login was successful. In this case we load the _Main_ storyboard and create the _TabBarController_. This is the line where we use the _Storyboard ID_ that we've set up earlier. Before we removed _Main.storyboard_ as default entry point to  our app, all of this was happening under the covers. Now we have to load Storyboards and View Controllers manually.
-3. After we have loaded the View Controller, we are also responsible for presenting it. We can choose the main View Controller of our app, in code, by setting the `rootViewController` property of the `AppDelegate`'s `window`. When the code in this closure runs, our app will already have the login screen as its `rootViewController`. As soon as the successful login completes, we present the _TabBarController_ on top of the login screen.
+2. If we didn't receive an `error`, but received a `user`, we know that our login was successful. In this case, we load the _Main_ storyboard and create the _TabBarController_. This is the line where we use the _Storyboard ID_ that we've set up earlier. Before we removed _Main.storyboard_ as the default entry point to our app, all of this was happening under the hood. Now we have to load storyboards and view controllers manually.
+3. After we have loaded the view controller, we are also responsible for presenting it. We can choose the main view controller of our app, in code, by setting the `rootViewController` property of the `AppDelegate`'s `window`. When the code in this closure runs, our app will already have the login screen as its `rootViewController`. As soon as the successful login completes, we present the _TabBarController_ on top of the login screen.
 
 Now we have the code in place that runs after a user attempted to log in - but where's the code that presents the login screen in the first place? We'll take care of that now.
 
@@ -137,14 +137,14 @@ We'll extend the `application(_:, didFinishLaunchingWithOptions:)` method to dec
 >
     if (user != nil) {
       // 3
-      // if we have a user, set the TabBarController to be the initial View Controller
+      // if we have a user, set the TabBarController to be the initial view controller
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
       startViewController = storyboard.instantiateViewControllerWithIdentifier("TabBarController") as! UITabBarController
     } else {
       // 4
       // Otherwise set the LoginViewController to be the first
       let loginViewController = PFLogInViewController()
-      loginViewController.fields = .UsernameAndPassword | .LogInButton | .SignUpButton | .PasswordForgotten | .Facebook
+      loginViewController.fields = [.UsernameAndPassword, .LogInButton, .SignUpButton, .PasswordForgotten, .Facebook]
       loginViewController.delegate = parseLoginHelper
       loginViewController.signUpController?.delegate = parseLoginHelper
 >
@@ -173,7 +173,7 @@ Awesome! Our login code is almost in place. There's one last change the Facebook
 
 Once again a boilerplate code requirement by the Facebook SDK that we don't need to discuss in detail.
 
-Now it's time to try this new code out in action! First we need to delete the _Makestagram_ app from the simulator to destroy our session. Otherwise Parse would remember that we're logged in and wouldn't show us the login screen.
+Now it's time to try this new code out in action! First we need to delete the **Makestagram** app from the simulator to destroy our session. Otherwise Parse would remember that we're logged in and wouldn't show us the login screen.
 
 > [action]
 > Delete the _Makestagram_ app from the Simulator:
@@ -193,7 +193,7 @@ We'll tackle that issue next.
 
 #Making the Facebook Login Work
 
-To be able to login with Facebook, we need to register our app with their platform. Make sure you are signed up and logged in to Facebook so that you are able to access the Facebook Developer Portal. For future reference you can find the general setup guide [here](https://developers.facebook.com/docs/ios/getting-started). For now it will be easier to follow our instructions that are more specific to the _Makestagram_ app.
+To be able to login with Facebook, we need to register our app with their platform. Make sure you are signed up and logged in to Facebook so that you are able to access the Facebook Developer Portal. For future reference you can find the general setup guide [here](https://developers.facebook.com/docs/ios/getting-started). For now it will be easier to follow our instructions that are more specific to the **Makestagram** app.
 
 Let's create a new Facebook app.
 
@@ -247,12 +247,12 @@ If it is working: Congratulations! You have learned how to implement a fully wor
 
 #Conclusion
 
-In this step you learned how to change the configuration of an app, so that the _Main.storyboard_ isn't automatically chosen as the entry point. You have learned how you can instead implement the selection of the main View Controller in code. That allows us to elegantly hide the app content behind a login wall if a user isn't signed in.
+In this step, you learned how to change the configuration of an app so that the _Main.storyboard_ isn't automatically chosen as the entry point. You have learned how you can instead implement the selection of the main view controller in code, which allows us to elegantly hide the app content behind a login wall if a user isn't signed in.
 
 You have also learned how to use the `ParseLoginHelper` and the `PFLoginViewController` to create signup and login flow for your app.
 
-Finally, you have learned how to set up your app on Facebook. That allows user to sign up for your app using their Facebook account.
+Finally, you have learned how to set up your app on Facebook, which allows users to sign up for your app using their Facebook account.
 
 This step should serve as a good template for implementing the login and signup feature in your own app.
 
-In the next step we will look into a small optimization for _Makestagram_. Even though it isn't obvious, it turns out that the app is using a large amount of memory...
+In the next step we will look into a small optimization for **Makestagram**. Even though it isn't obvious, it turns out that the app is using a large amount of memory...
