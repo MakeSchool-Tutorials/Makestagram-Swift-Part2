@@ -9,6 +9,12 @@ Once you start developing software, you will realize that many, if not most, of 
 
 This last step will show you how to easily incorporate third-party code into your iOS projects, before you head on to work on your own project.
 
+We have also prepared a brief lecture that will bring you up to speed on how to use third-party code in your app:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fvaY22g2R0w" frameborder="0" allowfullscreen></iframe>
+
+You can download the slides [here](https://s3.amazonaws.com/mgwu-misc/SA2015/LectureSlides/Libraries.pdf).
+
 #What Is a Dependency Manager?
 
 One way of adding third-party code to your project would be to download all of the source code and copy it into your project.
