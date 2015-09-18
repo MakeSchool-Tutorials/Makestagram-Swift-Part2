@@ -3,9 +3,6 @@ title: 'Fixing a Memory Issue'
 slug: 'fixing-a-memory-issue'
 ---
 
-
-Throughout this tutorial, we won't dive too deep into detecting and fixing memory issues. However, this step will discuss a specific issue of our **Makestagram** app - that should make you aware of potential problems in your own app.
-
 #What are Memory Warnings?
 
 If you spent some time using the current version of _Makestagram_ and upload a large amount of photos you will likely see a _memory warning_ show up in the Xcode console. Potentially your app will even crash. Despite the fact that today's iPhones are powerful devices with lots of memory and processing power, we still have limited resources to work with.
