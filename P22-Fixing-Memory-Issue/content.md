@@ -38,6 +38,9 @@ Let's add the code and then discuss it in detail.
 >
     var post:Post? {
       didSet {
+      
+        postDisposable?.dispose()
+        likeDisposable?.dispose()
         // free memory of image stored with post that is no longer displayed
         // 1
         if let oldValue = oldValue where oldValue != post {
@@ -45,9 +48,9 @@ Let's add the code and then discuss it in detail.
         }
 >
           if let post = post {
-            post.image.bindTo(postImageView.bnd_image)
+            postDisposable = post.image.bindTo(postImageView.bnd_image)
 >
-            post.likes.observe { (value: [PFUser]?) -> () in
+            likeDisposable = post.likes.observe { (value: [PFUser]?) -> () in
               if let value = value {
                 self.likesLabel.text = self.stringFromUserList(value)
                 self.likeButton.selected = value.contains(PFUser.currentUser()!)
