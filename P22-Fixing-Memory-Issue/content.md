@@ -64,6 +64,15 @@ Let's add the code and then discuss it in detail.
         }
       }
 
+1. The `oldValue` variable is available automatically in the `didSet` property observer. It provides us with a way to access the previous value of a property. We check if an `oldValue` exists and if that `oldValue` is different from the new `post`. If that's the case, we know that we need to do some cleanup.
+2. By setting `oldValue.image.value` to `nil` we are secretly fixing an issue that we haven't even discussed yet. Without this code in place, we are adding a new binding whenever a new post gets assigned to our `PostTableViewCell`. In most cases, where you create a binding, you should also have code that destroys that binding when it is no longer needed. In the case of the `PostTableViewCell` we don't need the binding anymore if the cell is displaying a new post. By setting `oldValue.image.value` to `nil`, we unsubscribe from future updates of the old post.
+
+Great! Whenever an image is no longer displayed, we are freeing up the memory. That means we'll only have about 3 images in memory at any point in time. Our memory issue is fixed!
+
+#Won't This Make Our App Slower?
+
+Yes and No. You might wonder if resetting the `image` to `nil` means that we need to download the image again, every single time a post is displayed, even if we have loaded the image previously.
+
 
 
 Whenever we download an image, we store it in the cache. We use the filename of the `PFFile` as a key for the cache. Next time we need to download a `PFFile`, we check if that file has already been downloaded and if the file content is stored in our cache. If that's the case, we get the file content from the cache instead of loading it from disk.
