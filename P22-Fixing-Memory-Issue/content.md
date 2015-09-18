@@ -73,7 +73,29 @@ Great! Whenever an image is no longer displayed, we are freeing up the memory. T
 
 Yes and No. You might wonder if resetting the `image` to `nil` means that we need to download the image again, every single time a post is displayed, even if we have loaded the image previously.
 
+Luckily that is not the case! Let's take a short look at the `downloadImage` method in the `Post` class:
 
+    func downloadImage() {
+         imageFile?.getDataInBackgroundWithBlock { (data, error) -> Void in
+          if let data = data {
+            let image = UIImage(data: data, scale:1.0)!
+            self.image.value = image
+          }
+        }
+      }
+    }
+
+You can see that we are calling `imageFile?.getDataInBackgroundWithBlock` whenever the `image.value == nil` condition is true. However, Parse automatically takes care of caching our downloads and storing them on disk. This means if we request an image that has been downloaded recently, it will be fetched from the iPhone's local storage instead of from the Parse server.
+
+However, if you run the app in the current version you might be able to realize small freezes and delays when scrolling up and down the timeline. That's because even loading image files from disk can take a noticeable amount of time.
+
+So now we have traded our memory problem for a performance problem; can we have the best of both worlds?
+
+#Improving Performance
+
+Yes we can! Thanks to `NSCacheSwift`. `NSCacheSwift` is very similar to a `Dictionary` it allows us to store key-value pairs. However, when our app receives a memory warning, entries are automatically removed from `NSCacheSwift`. That prevents our app from being shut down by the operating system.
+
+So how can we use `NSCacheSwift` to solve our memory problem?
 
 Whenever we download an image, we store it in the cache. We use the filename of the `PFFile` as a key for the cache. Next time we need to download a `PFFile`, we check if that file has already been downloaded and if the file content is stored in our cache. If that's the case, we get the file content from the cache instead of loading it from disk.
 
