@@ -5,6 +5,39 @@ slug: 'fixing-a-memory-issue'
 
 
 
+1. The `oldValue` variable is available automatically in the `didSet` property observer. It provides us with a way to access the previous value of a property. We check if an `oldValue` exists and if that `oldValue` is different from the new `post`. If that's the case, we know that we need to do some cleanup.
+2. By setting `oldValue.image.value` to `nil` we are secretly fixing an issue that we haven't even discussed yet. Without this code in place, we are adding a new binding whenever a new post gets assigned to our `PostTableViewCell`. In most cases, where you create a binding, you should also have code that destroys that binding when it is no longer needed. In the case of the `PostTableViewCell` we don't need the binding anymore if the cell is displaying a new post. By setting `oldValue.image.value` to `nil`, we unsubscribe from future updates of the old post.
+
+Great! Whenever an image is no longer displayed, we are freeing up the memory. That means we'll only have about 3 images in memory at any point in time. Our memory issue is fixed!
+
+#Won't This Make Our App Slower?
+
+Yes and No. You might wonder if resetting the `image` to `nil` means that we need to download the image again, every single time a post is displayed, even if we have loaded the image previously.
+
+Luckily that is not the case! Let's take a short look at the `downloadImage` method in the `Post` class:
+
+    func downloadImage() {
+         imageFile?.getDataInBackgroundWithBlock { (data, error) -> Void in
+          if let data = data {
+            let image = UIImage(data: data, scale:1.0)!
+            self.image.value = image
+          }
+        }
+      }
+    }
+
+You can see that we are calling `imageFile?.getDataInBackgroundWithBlock` whenever the `image.value == nil` condition is true. However, Parse automatically takes care of caching our downloads and storing them on disk. This means if we request an image that has been downloaded recently, it will be fetched from the iPhone's local storage instead of from the Parse server.
+
+However, if you run the app in the current version you might be able to realize small freezes and delays when scrolling up and down the timeline. That's because even loading image files from disk can take a noticeable amount of time.
+
+So now we have traded our memory problem for a performance problem; can we have the best of both worlds?
+
+#Improving Performance
+
+Yes we can! Thanks to `NSCacheSwift`. `NSCacheSwift` is very similar to a `Dictionary` it allows us to store key-value pairs. However, when our app receives a memory warning, entries are automatically removed from `NSCacheSwift`. That prevents our app from being shut down by the operating system.
+
+So how can we use `NSCacheSwift` to solve our memory problem?
+
 Whenever we download an image, we store it in the cache. We use the filename of the `PFFile` as a key for the cache. Next time we need to download a `PFFile`, we check if that file has already been downloaded and if the file content is stored in our cache. If that's the case, we get the file content from the cache instead of loading it from disk.
 
 What we've just described is a very typical caching mechanism. Let's implement it in our `Post` class!
