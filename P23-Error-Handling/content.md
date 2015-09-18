@@ -1,7 +1,3 @@
----
-title: "Adding Basic Error Handling"
-slug: "error-handling"
----
 
 Error Handling is not the most exciting topic, but definitely an important one! It also is anything but trivial. Imagine, a user liked a photo, you try to send this information to Parse and as a response you receive an error. What should you do? How do you inform the user? Should you mark the post as liked or unliked? Each possible error will pose such questions - answering them is well beyond the scope of this tutorial, especially since most errors will be fairly specific to your own application.
 
