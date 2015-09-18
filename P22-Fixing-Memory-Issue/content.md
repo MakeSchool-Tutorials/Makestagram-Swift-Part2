@@ -33,36 +33,7 @@ Whenever the `PostTableViewCell` receives a new post that should be displayed, w
 
 Let's add the code and then discuss it in detail.
 
-> [action]
-> Update the `didSet` observer of the `post` property in the `PostTableViewCell` class to look as following:
->
-    var post:Post? {
-      didSet {
->      
-        postDisposable?.dispose()
-        likeDisposable?.dispose()
-        // free memory of image stored with post that is no longer displayed
-        // 1
-        if let oldValue = oldValue where oldValue != post {
-            oldValue.image.value = nil
-        }
->
-          if let post = post {
-            postDisposable = post.image.bindTo(postImageView.bnd_image)
->
-            likeDisposable = post.likes.observe { (value: [PFUser]?) -> () in
-              if let value = value {
-                self.likesLabel.text = self.stringFromUserList(value)
-                self.likeButton.selected = value.contains(PFUser.currentUser()!)
-                self.likesIconImageView.hidden = (value.count == 0)
-              } else {
-                self.likesLabel.text = ""
-                self.likeButton.selected = false
-                self.likesIconImageView.hidden = true
-            }
-          }
-        }
-      }
+
 
 1. The `oldValue` variable is available automatically in the `didSet` property observer. It provides us with a way to access the previous value of a property. We check if an `oldValue` exists and if that `oldValue` is different from the new `post`. If that's the case, we know that we need to do some cleanup.
 2. By setting `oldValue.image.value` to `nil` we are secretly fixing an issue that we haven't even discussed yet. Without this code in place, we are adding a new binding whenever a new post gets assigned to our `PostTableViewCell`. In most cases, where you create a binding, you should also have code that destroys that binding when it is no longer needed. In the case of the `PostTableViewCell` we don't need the binding anymore if the cell is displaying a new post. By setting `oldValue.image.value` to `nil`, we unsubscribe from future updates of the old post.
