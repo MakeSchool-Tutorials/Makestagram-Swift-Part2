@@ -1,6 +1,6 @@
 ---
 title: "Fixing a Memory Issue"
-slug: "fixing-a-memory-issue"
+slug: fixing-a-memory-issue
 ---
 
 Throughout this tutorial, we won't dive too deep into detecting and fixing memory issues. However, this step will discuss a specific issue of our **Makestagram** app - that should make you aware of potential problems in your own app.
