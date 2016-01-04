@@ -226,8 +226,11 @@ Before we can test the Facebook login we'll need to make some changes to the _In
 
 > [action]
 Open the app's _Info.plist_ as shown in the image below. Then configure it by performing the following steps from Facebook's setup guide (_Note that you can add new lines to a .plist by selecting an existing line and hitting the + button._):
+>
 1. Create a key called _FacebookAppID_ with a string value, and add the app ID there.
+>
 2. Create a key called _FacebookDisplayName_ with a string value, and add the Display Name you configured in the App Dashboard.
+>
 3. Create an array key called _URL types_ with a single array sub-item called _URL Schemes_. Give this a single item with your app ID prefixed with fb.
 
 
